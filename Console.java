@@ -2,8 +2,9 @@
 
 import java.util.Scanner;
 public class Console {
+    private static DBManager myDBM;
     private static Option[] optionsMasterList;
-    OptionsMasterList = DBManager.getOptions(); //Perhaps?
+    
 
     public static void main(String[] args) throws Exception {
         Scanner input = new Scanner(System.in);
