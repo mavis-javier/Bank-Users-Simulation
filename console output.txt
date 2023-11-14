@@ -1,0 +1,97 @@
+Please enter your Username: 
+Please enter your Password: 
+
+Login was successful/failure
+
+Bank customer view
+[1] Access your checkings account
+[2] Access your savings account
+[3] Change your password
+[4] Logout
+
+
+	selected [1]
+	[1] Check your balance
+	[2] Withdraw
+	[3] Deposit
+	[4] Go back
+
+		selected [1]
+		You have a balance of $?
+		(return to previous previous state)
+
+		selected [2]
+		How much money would you like to withdraw: 
+		(return to previous previous state)
+
+		selected [3]
+		How much money would you like to deposit: 
+		(return to previous previous state)
+
+		selected [4]
+		(return to previous previous state)
+
+	selected [2]
+	[1] Check your balance
+	[2] Withdraw
+	[3] Deposit
+	[4] Go back
+
+		selected [1]
+		You have a balance of $?
+
+		selected [2]
+		How much money would you like to withdraw
+
+		(display a receipt)
+
+		selected [3]
+		How much money would you like to deposit
+
+		(display a receipt)
+
+		selected [4]
+		(return to previous previous state)
+
+	selected [3]
+	Please enter your new Password:
+
+	Your password was changed successfully
+	(return to previous state)
+
+	selected [4]
+	You have been logged out
+	(return to starting state)
+
+Admin view
+[1] Change a customer's login
+[2] Review a customer's transactions
+[3] view the customer's balance
+[4] Set user balance
+
+	selected [1]
+	Enter the customer's username: 
+	Enter the customer's new password:
+
+	Success!
+	(return to previous state)
+
+	selected [2]
+	Enter the customer's username:
+
+	(display the customer's receipts)
+
+	selected [3]
+	Enter the customer's username: 
+	
+	The customer's checking's balance: 
+	The customer's saving's balance:
+
+	(return to previous state)
+
+	selected [4]
+	Enter the customer's username:
+	Enter the customer's new checking's balance:
+	Enter the customer's new saving's balance:
+
+	(return to previous state)
