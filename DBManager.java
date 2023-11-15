@@ -1,17 +1,32 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 public class DBManager {
-    private mySQL_DB myDB;
+   private static final String DB_URL = "jdbc:mysql://localhost:3306/test?serverTimezone=UTC";
+   private static final String USER = "username";
+   private static final String PASS = "password";
 
-    public DBManager(String DBPath_or_something) {
-        myDB = new mySQL_DB(DBPath_or_something);
-    }
+   private Connection connection;
 
-    public Option[] getOptions() {
-        return null;
-    }
+   public DBManager() {
+       try {
+           connection = DriverManager.getConnection(DB_URL, USER, PASS);
+       } catch (SQLException e) {
+           e.printStackTrace();
+       }
+   }
 
-    public Subject login(String username, String password) {
+   public Connection getConnection() {
+       return connection;
+   }
 
-
-        return null;    //if unsuccessful login
-    }
+   public void closeConnection() {
+       try {
+           connection.close();
+       } catch (SQLException e) {
+           e.printStackTrace();
+       }
+   }
 }
+
