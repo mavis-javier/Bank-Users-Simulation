@@ -29,7 +29,7 @@ public class Console {
 
             int selection = input.nextInt();
             switch(selection) {
-                
+
                 case(0) :   currentUser = null; break;
                 default :   continue;
             }
