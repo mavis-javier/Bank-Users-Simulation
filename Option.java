@@ -1,4 +1,4 @@
-public abstract class Option {
+public class Option {
     private SecLevel classification;
     private String name;
 
@@ -15,6 +15,4 @@ public abstract class Option {
     public String toString() {
         return name;
     }
-
-    public abstract void start();
 }
