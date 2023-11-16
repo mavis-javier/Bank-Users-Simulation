@@ -1,5 +1,9 @@
-public abstract class Subject {
+public class Subject {
         private String username;
-        private String password;
         private SecLevel clearance;
+
+        public Subject(String name, SecLevel clearance) {
+                this.username = name;
+                this.clearance = clearance;
+        }
 }
