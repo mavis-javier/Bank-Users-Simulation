@@ -1,4 +1,4 @@
-public class viewSavingsAccount extends Options {
+public class viewSavingsAccount extends Option {
     private String uname;
 
     public viewSavingsAccount(String username) {
