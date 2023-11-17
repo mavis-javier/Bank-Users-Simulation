@@ -34,6 +34,9 @@ public class jdbc {
             // *************************DB operation in Here*******************************
             // insert(004, 280); //NOTE: Duplicate insetrtion not allowed
             getCheckingBalance("test");
+            getSavingBalance("test");
+            getSavingBalance("usr4");
+            
            // writeBalance(2, 0);
             // getBalance(2);
 
@@ -94,13 +97,40 @@ public class jdbc {
             // Process the result set
             while (resultSet.next()) {
                 int balance = resultSet.getInt("BALANCE");
-                System.out.println("Balance for Account_ID " + urName + ": " + balance);
+                System.out.println( "User "+ urName + "----- " + " Checking Account Balance : "+ balance);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
+   static void getSavingBalance(String urName) {
+        try {
+
+            // SQL query to select BALANCE based on Account_ID
+            
+            String sqlQuery = "SELECT S.BALANCE FROM SAVINGS_ACCOUNT S, USERS U WHERE S.SAVINGS_ACCOUNT_ID = U.SAVINGS_ACCOUNT_ID AND U.USERNAME = ?";
+            preparedStatement = connection.prepareStatement(sqlQuery);
+
+            // Set value for the parameter in the SQL query
+            preparedStatement.setString(1, urName);
+
+            // Execute the select statement
+            resultSet = preparedStatement.executeQuery();
+
+            // Process the result set
+            while (resultSet.next()) {
+                int balance = resultSet.getInt("BALANCE");
+                System.out.println( "User "+ urName + "----- " + " Saving Account Balance : "+ balance);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     static void writeBalance(int Acc_ID, int Bal) {
         try {
