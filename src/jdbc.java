@@ -32,8 +32,10 @@ public class jdbc {
             System.out.println("Connected to the database!");
 
             // *************************DB operation in Here*******************************
-            //insert(004, 280);     //NOTE: Duplicate insetrtion not allowed
+            // insert(004, 280); //NOTE: Duplicate insetrtion not allowed
             getBalance(2);
+            writeBalance(2, 0);
+              getBalance(2);
 
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -75,7 +77,6 @@ public class jdbc {
         }
     }
 
-    
     static void getBalance(int Acc_ID) {
         try {
 
@@ -94,6 +95,26 @@ public class jdbc {
                 int balance = resultSet.getInt("BALANCE");
                 System.out.println("Balance for Account_ID " + Acc_ID + ": " + balance);
             }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    static void writeBalance(int Acc_ID, int Bal) {
+        try {
+            // SQL query to select BALANCE based on Account_ID
+            String sqlQuery =   "UPDATE ACCOUNT SET BALANCE = ? WHERE Account_ID = ?";
+            preparedStatement = connection.prepareStatement(sqlQuery);
+
+           // Set values for the parameters in the SQL query
+            preparedStatement.setInt(1, Bal);
+            preparedStatement.setInt(2, Acc_ID);
+
+           // Execute the insert statement
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            System.out.println(rowsAffected + " row(s) affected.");
 
         } catch (SQLException e) {
             e.printStackTrace();
