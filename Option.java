@@ -1,13 +1,13 @@
-public class Option {
+public abstract class Option {
     private SecLevel classification;
     private String name;
 
-    public void setClassification(SecLevel classification) {
-        this.classification = classification;
+    public Option(SecLevel c, String n) {
+        this.classification = c;
+        this.name = n;
     }
-    public void setName(String name) {
-        this.name = name;
-    }
+
+    public void start() {}
 
     public SecLevel getClassification() {
         return this.classification;
