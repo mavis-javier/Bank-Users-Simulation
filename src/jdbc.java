@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class jdbc {
 
@@ -31,8 +32,13 @@ public class jdbc {
 
             System.out.println("Connected to the database!");
 
+              // TODO: get switch()  for options?
+          
+
             // *************************DB operation in Here*******************************
             // insert(004, 280); //NOTE: Duplicate insetrtion not allowed
+           
+        
             getCheckingBalance("test");
             getSavingBalance("test");
             getSavingBalance("usr4");
@@ -60,6 +66,34 @@ public class jdbc {
             }
         }
     }
+
+        public Subject login(String username, String password) {
+        Subject out = null;
+
+        try {
+            Statement sql = connection.createStatement();
+            ResultSet qResults = sql.executeQuery(String.format("SELECT USERNAME, CLEARANCE FROM USERS" +
+                                                                "WHERE USERNAME = \"%s\"" +
+                                                                "AND PASSWORD = \"%s\";", username, password));
+
+            if(qResults.last()) {
+                out = new Subject(qResults.getString("USERNAME"),
+                                  SecLevel.values()[qResults.getInt("CLEARANCE")]);
+                if(qResults.getRow() != 1) {
+                    System.out.println("Warning: Duplicate users in DB");
+                }
+            }   //else incorrect login credentials, and out stays null
+                
+            sql.close();
+        }
+
+        catch(SQLException e) {
+            System.out.println("Error with DB during login");
+        }
+
+        return out;
+    }
+
 
     static void insert(int Acc_ID, int balance) {
         try {
@@ -132,7 +166,7 @@ public class jdbc {
 
 
 
-    static void writeBalance(int Acc_ID, int Bal) {
+    static void writeBalance(String urName, int Bal) {
         try {
             // SQL query to select BALANCE based on Account_ID
             String sqlQuery =   "UPDATE ACCOUNT SET BALANCE = ? WHERE Account_ID = ?";
