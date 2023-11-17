@@ -29,27 +29,35 @@ public class DBManager {
 
     public Subject login(String username, String password) {
         Subject out = null;
+        Statement sql = null;
+        String query = String.format("SELECT Username FROM Customer " +
+                                     "WHERE Username = \'%s\' " +
+                                     "AND Password = \'%s\';", username, password);
+        ResultSet qResults = null;
 
         try {
-            String query = String.format("SELECT Username, Password FROM Customer " +
-                    "WHERE Username = \'%s\' " +
-                    "AND Password = \'%s\';", username, password);
-            Statement sql = connection.createStatement();
-            ResultSet qResults = sql.executeQuery(query);
+            sql = connection.createStatement();
+            qResults = sql.executeQuery(query);
 
             if(qResults.next()) {
                 out = new Subject(qResults.getString("Username"),
                                     SecLevel.values()[1]);
-//                                  SecLevel.values()[qResults.getInt("Password")]);
                 if(qResults.getRow() != 1) {
                     System.out.println("Warning: Duplicate users in DB");
                 }
             }   //else incorrect login credentials, and out stays null
-                
-            sql.close();
         }
         catch(SQLException e) {
             System.out.println("Error with DB during login");
+        }
+        finally {
+            try {
+                sql.close();    //This implicitly closes qResults if applicable
+            }
+            catch(NullPointerException n) {}    //sql was never successfully instantiated. Nothing to clean up
+            catch(SQLException s) {
+                System.out.println("Could not close sql Statement after login attempt. Potential memory leak");
+            }
         }
 
         return out;
@@ -60,12 +68,12 @@ public class DBManager {
 
         try {
             Statement sql = connection.createStatement();
-            ResultSet qResults = sql.executeQuery("SELECT NAME, CLASSIFICATION FROM OPTIONS;");
+            ResultSet qResults = sql.executeQuery("SELECT Name, Classification FROM Options;");
 
             do {
                 Option temp = new Option();
-                temp.setName(qResults.getString("NAME"));
-                temp.setClassification(SecLevel.values()[qResults.getInt("CLASSIFICATION")]);
+                temp.setName(qResults.getString("Name"));
+                temp.setClassification(SecLevel.values()[qResults.getInt("Classification")]);
 
                 out.add(temp);
             } while(qResults.next());
@@ -77,6 +85,28 @@ public class DBManager {
         }
 
         return out;
+    }
+
+    public boolean insertAccount(int Acc_ID, int balance) {
+        boolean out = false;
+
+        return out;
+    }
+
+    public Account getAccount(int Acc_ID) {
+        Account out = null;
+
+        return out;
+    }
+
+    public boolean adjustBalance(int Acc_ID, int change) {
+        boolean out = false;
+
+        return out;
+    }
+
+    private void addAuditRow(int Acc_ID, int change) {
+
     }
 
     public void closeConnection() {
