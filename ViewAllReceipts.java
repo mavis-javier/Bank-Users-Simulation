@@ -4,6 +4,6 @@ public class ViewAllReceipts extends Option {
     }
 
     public void start() {
-        jdbc.viewAllReceipts();
+        JDBC.viewAllReceipts();
     }
 }
