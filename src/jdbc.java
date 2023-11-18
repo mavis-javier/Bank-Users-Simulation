@@ -43,8 +43,9 @@ public class jdbc {
             getSavingBalance("usr2");
             getCheckingBalance("usr2");
             
-            writeCKBalance("usr2", 50);
-            writeSVBalance("usr2", 40);
+            writeCKBalance("usr2", 20);
+            writeSVBalance("usr2", -50);
+           // writeSVBalance("usr2", 40);
             System.out.println("After new balance written");
             getCheckingBalance("usr2");
             getSavingBalance("usr2");
@@ -146,57 +147,106 @@ public class jdbc {
 
 
 
-    static void writeCKBalance( String urName, int Bal) {
+    static void writeCKBalance(String urName, int amount) {
         try {
-
-            //sql query get checkingACCOUNTID from urName:
-
-            // SQL query to select BALANCE based on Account_ID
-            String sqlQuery = "UPDATE Checking_Account C " +
-                               "JOIN USERS U ON C.CHECKING_ACCOUNT_ID = U.CHECKING_ACCOUNT_ID " +
-                               "SET C.Balance = ? " +
-                               "WHERE U.Username = ?";
-            preparedStatement = connection.prepareStatement(sqlQuery);
-
-           // Set values for the parameters in the SQL query
-            preparedStatement.setInt(1, Bal);
+            // SQL query to update balance in Checking_Account based on Username
+            String updateQuery = "UPDATE Checking_Account C " +
+                                 "JOIN USERS U ON C.CHECKING_ACCOUNT_ID = U.CHECKING_ACCOUNT_ID " +
+                                 "SET C.Balance = C.Balance + ? " +
+                                 "WHERE U.Username = ?";
+            preparedStatement = connection.prepareStatement(updateQuery);
+    
+            // Set values for the parameters in the SQL query
+            preparedStatement.setInt(1, amount);
             preparedStatement.setString(2, urName);
-
-           // Execute the insert statement
+    
+            // Execute the update statement
             int rowsAffected = preparedStatement.executeUpdate();
-
+    
             System.out.println(rowsAffected + " row(s) affected.");
-
+    
+            // Execute the select statement to get the updated balance
+            String selectQuery = "SELECT C.Balance FROM Checking_Account C " +
+                                 "JOIN USERS U ON C.CHECKING_ACCOUNT_ID = U.CHECKING_ACCOUNT_ID " +
+                                 "WHERE U.Username = ?";
+            preparedStatement = connection.prepareStatement(selectQuery);
+            preparedStatement.setString(1, urName);
+    
+            // Execute the select statement
+            resultSet = preparedStatement.executeQuery();
+    
+            // Process the result set
+            while (resultSet.next()) {
+                int newBalance = resultSet.getInt("Balance");
+                System.out.println("User " + urName + " - New Checking Account Balance: " + newBalance);
+            }
+    
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            // Close resources in the finally block
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
-    static void writeSVBalance( String urName, int Bal) {
+    static void writeSVBalance(String urName, int amount) {
         try {
-
-            //sql query get checkingACCOUNTID from urName:
-
-            // SQL query to select BALANCE based on Account_ID
-            String sqlQuery = "UPDATE SAVINGS_Account S " +
-                               "JOIN USERS U ON S.SAVINGS_ACCOUNT_ID = U.SAVINGS_ACCOUNT_ID " +
-                               "SET S.Balance = ? " +
-                               "WHERE U.Username = ?";
-            preparedStatement = connection.prepareStatement(sqlQuery);
-
-           // Set values for the parameters in the SQL query
-            preparedStatement.setInt(1, Bal);
+            // SQL query to update balance in Savings_Account based on Username
+            String updateQuery = "UPDATE Savings_Account S " +
+                                 "JOIN Users U ON S.Savings_Account_ID = U.Savings_Account_ID " +
+                                 "SET S.Balance = S.Balance + ? " +
+                                 "WHERE U.Username = ?";
+            preparedStatement = connection.prepareStatement(updateQuery);
+    
+            // Set values for the parameters in the SQL update query
+            preparedStatement.setInt(1, amount);
             preparedStatement.setString(2, urName);
-
-           // Execute the insert statement
+    
+            // Execute the update statement
             int rowsAffected = preparedStatement.executeUpdate();
-
+    
             System.out.println(rowsAffected + " row(s) affected.");
-
+    
+            // Execute the select statement to get the updated balance
+            String selectQuery = "SELECT S.Balance FROM Savings_Account S " +
+                                 "JOIN Users U ON S.Savings_Account_ID = U.Savings_Account_ID " +
+                                 "WHERE U.Username = ?";
+            preparedStatement = connection.prepareStatement(selectQuery);
+            preparedStatement.setString(1, urName);
+    
+            // Execute the select statement
+            resultSet = preparedStatement.executeQuery();
+    
+            // Process the result set
+            while (resultSet.next()) {
+                int newBalance = resultSet.getInt("Balance");
+                System.out.println("User " + urName + " - New Saving Account Balance: " + newBalance);
+            }
+    
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            // Close resources in the finally block
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         }
     }
-
-
+    
 }
