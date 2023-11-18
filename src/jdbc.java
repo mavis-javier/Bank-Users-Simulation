@@ -40,9 +40,14 @@ public class jdbc {
            
         
             getCheckingBalance("test");
-            getSavingBalance("test");
-            getSavingBalance("usr4");
+            getSavingBalance("usr2");
+            getCheckingBalance("usr2");
             
+            writeCKBalance("usr2", 50);
+            writeSVBalance("usr2", 40);
+            System.out.println("After new balance written");
+            getCheckingBalance("usr2");
+            getSavingBalance("usr2");
            // writeBalance(2, 0);
             // getBalance(2);
 
@@ -67,32 +72,7 @@ public class jdbc {
         }
     }
 
-        public Subject login(String username, String password) {
-        Subject out = null;
-
-        try {
-            Statement sql = connection.createStatement();
-            ResultSet qResults = sql.executeQuery(String.format("SELECT USERNAME, CLEARANCE FROM USERS" +
-                                                                "WHERE USERNAME = \"%s\"" +
-                                                                "AND PASSWORD = \"%s\";", username, password));
-
-            if(qResults.last()) {
-                out = new Subject(qResults.getString("USERNAME"),
-                                  SecLevel.values()[qResults.getInt("CLEARANCE")]);
-                if(qResults.getRow() != 1) {
-                    System.out.println("Warning: Duplicate users in DB");
-                }
-            }   //else incorrect login credentials, and out stays null
-                
-            sql.close();
-        }
-
-        catch(SQLException e) {
-            System.out.println("Error with DB during login");
-        }
-
-        return out;
-    }
+        
 
 
     static void insert(int Acc_ID, int balance) {
@@ -166,15 +146,21 @@ public class jdbc {
 
 
 
-    static void writeBalance(String urName, int Bal) {
+    static void writeCKBalance( String urName, int Bal) {
         try {
+
+            //sql query get checkingACCOUNTID from urName:
+
             // SQL query to select BALANCE based on Account_ID
-            String sqlQuery =   "UPDATE ACCOUNT SET BALANCE = ? WHERE Account_ID = ?";
+            String sqlQuery = "UPDATE Checking_Account C " +
+                               "JOIN USERS U ON C.CHECKING_ACCOUNT_ID = U.CHECKING_ACCOUNT_ID " +
+                               "SET C.Balance = ? " +
+                               "WHERE U.Username = ?";
             preparedStatement = connection.prepareStatement(sqlQuery);
 
            // Set values for the parameters in the SQL query
             preparedStatement.setInt(1, Bal);
-            preparedStatement.setInt(2, Acc_ID);
+            preparedStatement.setString(2, urName);
 
            // Execute the insert statement
             int rowsAffected = preparedStatement.executeUpdate();
@@ -185,4 +171,32 @@ public class jdbc {
             e.printStackTrace();
         }
     }
+
+    static void writeSVBalance( String urName, int Bal) {
+        try {
+
+            //sql query get checkingACCOUNTID from urName:
+
+            // SQL query to select BALANCE based on Account_ID
+            String sqlQuery = "UPDATE SAVINGS_Account S " +
+                               "JOIN USERS U ON S.SAVINGS_ACCOUNT_ID = U.SAVINGS_ACCOUNT_ID " +
+                               "SET S.Balance = ? " +
+                               "WHERE U.Username = ?";
+            preparedStatement = connection.prepareStatement(sqlQuery);
+
+           // Set values for the parameters in the SQL query
+            preparedStatement.setInt(1, Bal);
+            preparedStatement.setString(2, urName);
+
+           // Execute the insert statement
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            System.out.println(rowsAffected + " row(s) affected.");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
