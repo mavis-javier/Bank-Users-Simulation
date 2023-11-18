@@ -112,7 +112,7 @@ public class JDBC {
             sql.close();
         }
         catch(SQLException e) {
-            System.out.println("Error with DB during login");
+            e.printStackTrace();
         }
 
         return out;
