@@ -20,7 +20,7 @@ public class Console {
         }
         System.out.println("Welcome, " + username);
 
-        while(currentUser != null) {}
+        while(currentUser != null) {
             System.out.println("Select an option below");
             int i = 0;
             for(Option o : optionsMasterList)
