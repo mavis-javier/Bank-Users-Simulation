@@ -1,12 +1,12 @@
-public class viewSavingsAccount extends Option {
+public class ViewSavingsAccount extends Option {
     private String uname;
 
-    public viewSavingsAccount(String username) {
+    public ViewSavingsAccount(String username) {
         super(SecLevel.CLASSIFIED, ActionType.READ, "View Savings Account");
         this.uname = username;
     }
     
     public void start() {
-        jdbc.getSavingsBalance(uname);
+        JDBC.getSavingsBalance(uname);
     }
 }

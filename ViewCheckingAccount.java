@@ -1,12 +1,12 @@
-public class viewCheckingAccount extends Option {
+public class ViewCheckingAccount extends Option {
     private String uname;
 
-    public viewCheckingAccount(String username) {
+    public ViewCheckingAccount(String username) {
         super(SecLevel.CLASSIFIED, ActionType.READ, "View Checking Account");
         this.uname = username;
     }
 
     public void start() {
-        jdbc.getCheckingBalance(uname);
+        JDBC.getCheckingBalance(uname);
     }
 }
