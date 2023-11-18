@@ -5,6 +5,6 @@ public class ViewUserReceipts extends Option {
     }
 
     public void start() {
-        jdbc.viewUserReceipts(uname);
+        JDBC.getUserReceipt(uname);
     }
 }

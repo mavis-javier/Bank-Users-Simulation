@@ -7,6 +7,6 @@ public class ViewCheckingAccount extends Option {
     }
 
     public void start() {
-        jdbc.getCheckingBalance(uname);
+        JDBC.getCheckingBalance(uname);
     }
 }

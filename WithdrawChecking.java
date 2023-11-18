@@ -14,6 +14,6 @@ public class WithdrawChecking extends Option {
         System.out.print("Enter your withdrawal amount :: ");
         int amount = -1 * Math.abs(kb.nextInt());
 
-        jdbc.writeCKAccount(uname, amount);
+        JDBC.writeCKBalance(uname, amount);
     }
 }
