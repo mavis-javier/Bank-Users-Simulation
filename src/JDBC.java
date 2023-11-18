@@ -91,7 +91,7 @@ public class JDBC {
                 preparedStatement.setString(2, password);
     
                 try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                    if (resultSet.last()) {
+                    if (resultSet.next()) {
                         out = new Subject(resultSet.getString("USERNAME"),
                                           SecLevel.values()[resultSet.getInt("CLEARANCE")]);
                     }
