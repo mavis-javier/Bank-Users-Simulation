@@ -16,6 +16,8 @@ public class Console {
     }
 
     public static void main(String[] args) throws Exception {
+        JDBC.connect();
+
         Scanner input = new Scanner(System.in);
         System.out.println("Please enter username: ");
         String username = input.nextLine();
@@ -49,6 +51,7 @@ public class Console {
                                 case 3  :   op = new WithdrawSavings(currentUser.getUsername(), input); break;
                                 default :   System.out.println("Going back...");
                             }
+                            break;
                 case 2  :   System.out.flush();
                             System.out.println("Welcome to your Checking Account");
                             System.out.println("Please select an option below");
@@ -63,6 +66,7 @@ public class Console {
                                 case 3  :   op = new WithdrawChecking(currentUser.getUsername(), input); break;
                                 default :   System.out.println("Going back...");
                             }
+                            break;
                 case 3  :   op = new ViewUserReceipts(currentUser.getUsername()); break;
                 case 4  :   op = new ViewAllReceipts(); break;
 

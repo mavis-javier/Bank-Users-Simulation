@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class jdbc {
+public class JDBC {
 
     // jdbc URL, username, and password of MySQL server
     private static final String jdbc_URL = "jdbc:mysql://localhost:3306/banksim"; // TODO: change current DB
@@ -76,6 +76,48 @@ public class jdbc {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public static Subject login(String username, String password) {
+        Subject out = null;
+    
+        try {
+            String query = "SELECT USERNAME, CLEARANCE FROM USERS " +
+                           "WHERE USERNAME = ? AND PASSWORD = ?";
+    
+            try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+                preparedStatement.setString(1, username);
+                preparedStatement.setString(2, password);
+    
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    if (resultSet.last()) {
+                        out = new Subject(resultSet.getString("USERNAME"),
+                                          SecLevel.values()[resultSet.getInt("CLEARANCE")]);
+                    }
+                    // else incorrect login credentials, and out stays null
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    
+        return out;
+    }
+
+    public static void connect() {
+        try {
+            // Register the jdbc driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // Open a connection
+            System.out.println("Connecting to database...");
+            connection = DriverManager.getConnection(jdbc_URL, USERNAME, PASSWORD);
+
+            System.out.println("Connected to the database!");
+        }
+        catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
