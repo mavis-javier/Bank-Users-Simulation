@@ -104,7 +104,7 @@ public class JDBC {
                                                                 "WHERE USERNAME = \'%s\' " +
                                                                 "AND PASSWORD = \'%s\'", username, password));
 
-            if(qResults.last()) {
+            if(qResults.next()) {
                 out = new Subject(qResults.getString("USERNAME"),
                                   SecLevel.values()[qResults.getInt("CLEARANCE")]);
             }   //else incorrect login credentials, and out stays null
