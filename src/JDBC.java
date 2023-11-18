@@ -73,10 +73,31 @@ public class JDBC {
         }
     }
 
-        
+    public static Subject login(String username, String password) {
+        Subject out = null;
+
+        try {
+            Statement sql = connection.createStatement();
+            ResultSet qResults = sql.executeQuery(String.format("SELECT Username, Clearance FROM Users" +
+                                                                "WHERE Username = \'%s\'" +
+                                                                "AND Password = \'%s\';", username, password));
+
+            if(qResults.next()) {
+                out = new Subject(qResults.getString("Username"),
+                                  SecLevel.values()[qResults.getInt("Clearance")]);
+            }   //else incorrect login credentials, and out stays null
+
+            sql.close();
+        }
+        catch(SQLException e) {
+            System.out.println("Error with DB during login");
+        }
+
+        return out;
+    }
 
 
-    static void insert(int Acc_ID, int balance) {
+    public static void insert(int Acc_ID, int balance) {
         try {
             // SQL query to insert a tuple
             String sqlInsert = "INSERT INTO account (Account_ID, Balance) VALUES (?, ?)";
@@ -95,7 +116,7 @@ public class JDBC {
         }
     }
 
-    static void getCheckingBalance(String urName) {
+    public static void getCheckingBalance(String urName) {
         try {
 
             // SQL query to select BALANCE based on Account_ID
@@ -120,7 +141,7 @@ public class JDBC {
         }
     }
 
-   static void getSavingBalance(String urName) {
+   public static void getSavingBalance(String urName) {
         try {
 
             // SQL query to select BALANCE based on Account_ID
@@ -147,7 +168,7 @@ public class JDBC {
 
 
 
-    static void writeCKBalance(String urName, int amount) {
+    public static void writeCKBalance(String urName, int amount) {
         try {
             // SQL query to update balance in Checking_Account based on Username
             String updateQuery = "UPDATE Checking_Account C " +
@@ -198,7 +219,7 @@ public class JDBC {
         }
     }
 
-    static void writeSVBalance(String urName, int amount) {
+    public static void writeSVBalance(String urName, int amount) {
         try {
             // SQL query to update balance in Savings_Account based on Username
             String updateQuery = "UPDATE Savings_Account S " +
