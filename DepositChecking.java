@@ -14,6 +14,6 @@ public class DepositChecking extends Option {
         System.out.print("Enter your deposit amount :: ");
         int amount = Math.abs(kb.nextInt());
 
-        JDBC.writeCKAccount(uname, amount);
+        JDBC.writeCKBalance(uname, amount);
     }
 }

@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class jdbc {
+public class JDBC {
 
     // jdbc URL, username, and password of MySQL server
     private static final String jdbc_URL = "jdbc:mysql://localhost:3306/banksim"; // TODO: change current DB
@@ -77,6 +77,29 @@ public class jdbc {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static Subject login(String username, String password) {
+        Subject out = null;
+
+        try {
+            Statement sql = connection.createStatement();
+            ResultSet qResults = sql.executeQuery(String.format("SELECT USERNAME, CLEARANCE FROM USERS" +
+                                                                "WHERE USERNAME = \'%s\'" +
+                                                                "AND PASSWORD = \'%s\';", username, password));
+
+            if(qResults.last()) {
+                out = new Subject(qResults.getString("USERNAME"),
+                                  SecLevel.values()[qResults.getInt("CLEARANCE")]);
+            }   //else incorrect login credentials, and out stays null
+
+            sql.close();
+        }
+        catch(SQLException e) {
+            System.out.println("Error with DB during login");
+        }
+
+        return out;
     }
 
     static void insert(int Acc_ID, int balance) {

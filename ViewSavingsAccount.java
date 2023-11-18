@@ -7,6 +7,6 @@ public class ViewSavingsAccount extends Option {
     }
     
     public void start() {
-        JDBC.getSavingsBalance(uname);
+        JDBC.getSavingBalance(uname);
     }
 }
