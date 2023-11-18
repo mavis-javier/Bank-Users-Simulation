@@ -101,8 +101,8 @@ public class JDBC {
         try {
             Statement sql = connection.createStatement();
             ResultSet qResults = sql.executeQuery(String.format("SELECT USERNAME, CLEARANCE FROM USERS" +
-                                                                "WHERE USERNAME = \'%s\'" +
-                                                                "AND PASSWORD = \'%s\';", username, password));
+                                                                "WHERE USERNAME = \'%s\' " +
+                                                                "AND PASSWORD = \'%s\'", username, password));
 
             if(qResults.last()) {
                 out = new Subject(qResults.getString("USERNAME"),
