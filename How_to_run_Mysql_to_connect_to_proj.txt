@@ -5,5 +5,5 @@ mysql> use [dbname];
 mysql> source [filepathto.sqlfile]
 
 step2:
-Go to JDBC.java, change connection path to the database you created. such as "JDBC:mysql://localhost:3306/bankingsim"
+Go to jdbc.java, change connection path to the database you created. such as "jdbc:mysql://localhost:3306/bankingsim"
 Also reember to change the username and password accordingly.
