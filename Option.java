@@ -1,16 +1,21 @@
-public class Option {
+public abstract class Option {
     private SecLevel classification;
+    private ActionType myActionType;
     private String name;
 
-    public void setClassification(SecLevel classification) {
-        this.classification = classification;
+    public Option(SecLevel c, ActionType a, String n) {
+        this.classification = c;
+        this.myActionType = a;
+        this.name = n;
     }
-    public void setName(String name) {
-        this.name = name;
-    }
+
+    public void start() {}
 
     public SecLevel getClassification() {
         return this.classification;
+    }
+    public ActionType getActionType() {
+        return this.myActionType;
     }
     public String toString() {
         return name;
