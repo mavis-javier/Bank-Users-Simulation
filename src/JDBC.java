@@ -79,6 +79,22 @@ public class JDBC {
         }
     }
 
+    public static void connect() {
+        try {
+            // Register the jdbc driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // Open a connection
+            System.out.println("Connecting to database...");
+            connection = DriverManager.getConnection(jdbc_URL, USERNAME, PASSWORD);
+
+            System.out.println("Connected to the database!");
+        }
+        catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static Subject login(String username, String password) {
         Subject out = null;
 

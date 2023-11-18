@@ -16,6 +16,8 @@ public class Console {
     }
 
     public static void main(String[] args) throws Exception {
+        JDBC.connect();
+
         Scanner input = new Scanner(System.in);
         System.out.println("Please enter username: ");
         String username = input.nextLine();
