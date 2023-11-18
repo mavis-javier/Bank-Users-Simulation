@@ -5,7 +5,7 @@ public class depositChecking extends Option {
     private Scanner kb; //Passed in from Console.java. DO NOT close() it.
 
     public depositChecking(String username, Scanner keyboard) {
-        super(SecLevel.CLASSIFIED, "Deposit Checking Account");
+        super(SecLevel.CLASSIFIED, ActionType.WRITE, "Deposit Checking Account");
         this.uname = username;
         this.kb = keyboard;
     }

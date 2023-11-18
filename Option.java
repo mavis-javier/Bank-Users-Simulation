@@ -1,9 +1,11 @@
 public abstract class Option {
     private SecLevel classification;
+    private ActionType myActionType;
     private String name;
 
-    public Option(SecLevel c, String n) {
+    public Option(SecLevel c, ActionType a, String n) {
         this.classification = c;
+        this.myActionType = a;
         this.name = n;
     }
 

@@ -5,7 +5,7 @@ public class withdrawChecking extends Option {
     private Scanner kb; //Passed in from Console.java. DO NOT close() it.
 
     public withdrawChecking(String username, Scanner keyboard) {
-        super(SecLevel.CLASSIFIED, "Withdraw Checking Account");
+        super(SecLevel.CLASSIFIED, ActionType.WRITE, "Withdraw Checking Account");
         this.uname = username;
         this.kb = keyboard;
     }
