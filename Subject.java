@@ -6,4 +6,11 @@ public class Subject {
                 this.username = name;
                 this.clearance = clearance;
         }
+
+        public String getUsername() {
+                return this.username;
+        }
+        public SecLevel getClearance() {
+                return this.clearance;
+        }
 }

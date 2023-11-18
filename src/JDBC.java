@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class jdbc {
+public class JDBC {
 
     // JDBC URL, username, and password of MySQL server
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/banksim"; // TODO: change current DB
@@ -46,12 +46,12 @@ public class jdbc {
             getSavingBalance("usr2");
             getCheckingBalance("usr2");
 
-             writeCKBalance("usr2", 20);
+            writeCKBalance("usr2", 20);
             writeCKBalance("usr2", 60);
             writeCKBalance("usr4", 10);
             // writeSVBalance("usr2", 100);
-            getALLReceipt();
-            getUserReceipt("usr2");
+            // getALLReceipt();
+            getUserReceipt("usr4");
             System.out.println("After new balance written");
             getCheckingBalance("usr2");
             getSavingBalance("usr2");
