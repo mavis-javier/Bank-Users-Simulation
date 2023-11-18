@@ -14,6 +14,6 @@ public class WithdrawSavings extends Option {
         System.out.print("Enter your withdrawal amount :: ");
         int amount = -1 * Math.abs(kb.nextInt());
 
-        JDBC.writeSVBalance(uname, amount);
+        jdbc.writeSVAccount(uname, amount);
     }
 }
