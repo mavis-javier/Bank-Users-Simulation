@@ -14,6 +14,9 @@ public abstract class Option {
     public SecLevel getClassification() {
         return this.classification;
     }
+    public ActionType getActionType() {
+        return this.myActionType;
+    }
     public String toString() {
         return name;
     }
