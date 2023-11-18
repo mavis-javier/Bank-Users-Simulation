@@ -14,6 +14,6 @@ public class DepositSavings extends Option {
         System.out.print("Enter your deposit amount :: ");
         int amount = Math.abs(kb.nextInt());
 
-        jdbc.writeSVAccount(uname, amount);
+        JDBC.writeSVAccount(uname, amount);
     }
 }

@@ -22,7 +22,7 @@ public class Console {
         System.out.println("Please enter password: ");
         String password = input.nextLine();
 
-        Subject currentUser = jdbc.login(username, password);
+        Subject currentUser = JDBC.login(username, password);
         if(currentUser == null) {
             System.out.println("Incorrect login credentials! Please try again.");
             System.exit(1);

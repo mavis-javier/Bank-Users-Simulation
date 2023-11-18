@@ -7,10 +7,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class JDBC {
+public class jdbc {
 
-    // JDBC URL, username, and password of MySQL server
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/banksim"; // TODO: change current DB
+    // jdbc URL, username, and password of MySQL server
+    private static final String jdbc_URL = "jdbc:mysql://localhost:3306/banksim"; // TODO: change current DB
     private static final String USERNAME = "root";
     private static final String PASSWORD = "310872250";
 
@@ -23,12 +23,12 @@ public class JDBC {
     public static void main(String[] args) {
 
         try {
-            // Register the JDBC driver
+            // Register the jdbc driver
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             // Open a connection
             System.out.println("Connecting to database...");
-            connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
+            connection = DriverManager.getConnection(jdbc_URL, USERNAME, PASSWORD);
 
             System.out.println("Connected to the database!");
 
