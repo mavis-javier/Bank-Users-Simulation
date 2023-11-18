@@ -1,10 +1,10 @@
 import java.util.Scanner;
 
-public class withdrawSavings extends Option {
+public class WithdrawSavings extends Option {
     private String uname;
     private Scanner kb; //Passed in from Console.java. DO NOT close() it.
 
-    public withdrawSavings(String username, Scanner keyboard) {
+    public WithdrawSavings(String username, Scanner keyboard) {
         super(SecLevel.CLASSIFIED, ActionType.WRITE, "Withdraw Savings Account");
         this.uname = username;
         this.kb = keyboard;

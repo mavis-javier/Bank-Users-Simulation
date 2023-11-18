@@ -1,10 +1,10 @@
 import java.util.Scanner;
 
-public class depositSavings extends Option {
+public class DepositSavings extends Option {
     private String uname;
     private Scanner kb; //Passed in from Console.java. DO NOT close() it.
 
-    public depositSavings(String username, Scanner keyboard) {
+    public DepositSavings(String username, Scanner keyboard) {
         super(SecLevel.CLASSIFIED, ActionType.WRITE, "Deposit Savings Account");
         this.uname = username;
         this.kb = keyboard;
