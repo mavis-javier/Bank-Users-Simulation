@@ -97,24 +97,27 @@ public class JDBC {
 
     public static Subject login(String username, String password) {
         Subject out = null;
-
+    
         try {
-            Statement sql = connection.createStatement();
-            ResultSet qResults = sql.executeQuery(String.format("SELECT USERNAME, CLEARANCE FROM USERS" +
-                                                                "WHERE USERNAME = \'%s\'" +
-                                                                "AND PASSWORD = \'%s\';", username, password));
-
-            if(qResults.last()) {
-                out = new Subject(qResults.getString("USERNAME"),
-                                  SecLevel.values()[qResults.getInt("CLEARANCE")]);
-            }   //else incorrect login credentials, and out stays null
-
-            sql.close();
-        }
-        catch(SQLException e) {
+            String query = "SELECT USERNAME, CLEARANCE FROM USERS " +
+                           "WHERE USERNAME = ? AND PASSWORD = ?";
+            
+            try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+                preparedStatement.setString(1, username);
+                preparedStatement.setString(2, password);
+    
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    if (resultSet.next()) {
+                        out = new Subject(resultSet.getString("USERNAME"),
+                                          SecLevel.values()[resultSet.getInt("CLEARANCE")]);
+                    }
+                    // else incorrect login credentials, and out stays null
+                }
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-
+    
         return out;
     }
 
