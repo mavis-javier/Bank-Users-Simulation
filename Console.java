@@ -50,7 +50,8 @@ public class Console {
                                 case 2  :   op = new DepositSavings(currentUser.getUsername(), input); break;
                                 case 3  :   op = new WithdrawSavings(currentUser.getUsername(), input); break;
                                 default :   System.out.println("Going back...");
-                            }
+                            } 
+                            break;
                 case 2  :   System.out.flush();
                             System.out.println("Welcome to your Checking Account");
                             System.out.println("Please select an option below");
@@ -65,6 +66,7 @@ public class Console {
                                 case 3  :   op = new WithdrawChecking(currentUser.getUsername(), input); break;
                                 default :   System.out.println("Going back...");
                             }
+                            break;
                 case 3  :   op = new ViewUserReceipts(currentUser.getUsername()); break;
                 case 4  :   op = new ViewAllReceipts(); break;
 
