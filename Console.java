@@ -1,4 +1,3 @@
-import java.util.HashMap;
 import java.util.Scanner;
 public class Console { 
     private static final String[] OPTIONS = {
@@ -81,7 +80,8 @@ public class Console {
     }
 
     private static boolean hasPrivilege(Subject user, Option option) {
-        boolean out = false;
+        boolean out = true;
+        String message = null;
 
         SecLevel[] temp = SecLevel.values();
         int userClearanceIndex = 0;
@@ -95,11 +95,17 @@ public class Console {
         temp = null;    //Cleanup with garbage collector
 
         //Bell-Lapadula, No Read Up, No Write Down
-        if((userClearanceIndex <= optionClassificationIndex && option.getActionType() == ActionType.WRITE) ||
-           (userClearanceIndex >= optionClassificationIndex && option.getActionType() == ActionType.READ)) {
-            out = true;
-           }
+        if(userClearanceIndex < optionClassificationIndex && option.getActionType() == ActionType.READ) {
+            message = "Access denied - No read up.";
+            out = false;
+        }
+        else if(userClearanceIndex > optionClassificationIndex && option.getActionType() == ActionType.WRITE) {
+            message = "Access denied - No write down.";
+            out = false;
+        }
 
+        if(message != null)
+            System.out.println(message);
         return out;
     }
     
